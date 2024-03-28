@@ -100,6 +100,7 @@ function configure_multi_stage_inputs(inputs_d::Dict, settings_d::Dict, NetworkE
 			gen_VRE_STOR.inv_cost_inverter_per_mwyr = compute_overnight_capital_cost(settings_d, inv_cost_inverter_per_mwyr.(gen_VRE_STOR), capital_recovery_period_dc.(gen_VRE_STOR), tech_wacc_dc.(gen_VRE_STOR))
 			gen_VRE_STOR.inv_cost_solar_per_mwyr = compute_overnight_capital_cost(settings_d,	inv_cost_solar_per_mwyr.(gen_VRE_STOR), capital_recovery_period_solar.(gen_VRE_STOR), tech_wacc_solar.(gen_VRE_STOR))
 			gen_VRE_STOR.inv_cost_wind_per_mwyr = compute_overnight_capital_cost(settings_d, inv_cost_wind_per_mwyr.(gen_VRE_STOR), capital_recovery_period_wind.(gen_VRE_STOR), tech_wacc_wind.(gen_VRE_STOR))
+			gen_VRE_STOR.inv_cost_elec_per_mwyr = compute_overnight_capital_cost(settings_d, inv_cost_elec_per_mwyr.(gen_VRE_STOR), capital_recovery_period_elec.(gen_VRE_STOR), tech_elec_elec.(gen_VRE_STOR))
 			gen_VRE_STOR.inv_cost_discharge_dc_per_mwyr = compute_overnight_capital_cost(settings_d, inv_cost_discharge_dc_per_mwyr.(gen_VRE_STOR), capital_recovery_period_discharge_dc.(gen_VRE_STOR), tech_wacc_discharge_dc.(gen_VRE_STOR))
 			gen_VRE_STOR.inv_cost_charge_dc_per_mwyr = compute_overnight_capital_cost(settings_d, inv_cost_charge_dc_per_mwyr.(gen_VRE_STOR), capital_recovery_period_charge_dc.(gen_VRE_STOR), tech_wacc_charge_dc.(gen_VRE_STOR))
 			gen_VRE_STOR.inv_cost_discharge_ac_per_mwyr = compute_overnight_capital_cost(settings_d, inv_cost_discharge_ac_per_mwyr.(gen_VRE_STOR), capital_recovery_period_discharge_ac.(gen_VRE_STOR), tech_wacc_discharge_ac.(gen_VRE_STOR))
@@ -108,6 +109,7 @@ function configure_multi_stage_inputs(inputs_d::Dict, settings_d::Dict, NetworkE
 			gen_VRE_STOR.fixed_om_inverter_cost_per_mwyr = fixed_om_inverter_cost_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
 			gen_VRE_STOR.fixed_om_solar_cost_per_mwyr = fixed_om_solar_cost_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
 			gen_VRE_STOR.fixed_om_wind_cost_per_mwyr = fixed_om_wind_cost_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
+			gen_VRE_STOR.fixed_om_elec_cost_per_mwyr = fixed_om_elec_cost_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
 			gen_VRE_STOR.fixed_om_cost_discharge_dc_per_mwyr = fixed_om_cost_discharge_dc_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
 			gen_VRE_STOR.fixed_om_cost_charge_dc_per_mwyr = fixed_om_cost_charge_dc_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
 			gen_VRE_STOR.fixed_om_cost_discharge_ac_per_mwyr = fixed_om_cost_discharge_ac_per_mwyr.(gen_VRE_STOR) .* OPEXMULT
@@ -129,6 +131,7 @@ function configure_multi_stage_inputs(inputs_d::Dict, settings_d::Dict, NetworkE
 		inputs_d["RET_CAP_DC"] = intersect(retirable, inputs_d["VS_DC"])
 		inputs_d["RET_CAP_SOLAR"] = intersect(retirable, inputs_d["VS_SOLAR"])
 		inputs_d["RET_CAP_WIND"] = intersect(retirable, inputs_d["VS_WIND"])
+		inputs_d["RET_CAP_ELEC"] = intersect(retirable, inputs_d["VS_ELEC"])
 		inputs_d["RET_CAP_STOR"] = intersect(retirable, inputs_d["VS_STOR"])
 		inputs_d["RET_CAP_DISCHARGE_DC"] = intersect(retirable, inputs_d["VS_ASYM_DC_DISCHARGE"])
 		inputs_d["RET_CAP_CHARGE_DC"] = intersect(retirable, inputs_d["VS_ASYM_DC_CHARGE"])
