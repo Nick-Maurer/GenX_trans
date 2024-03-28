@@ -22,6 +22,7 @@ function default_settings()
         "MultiStage" => 0,
         "MethodofMorris" => 0,
         "IncludeLossesInESR" => 0,
+        "HydrogenMimimumProduction" => 0,
         "HydrogenHourlyMatching" => 0,
         "EnableJuMPStringNames" => false,
         "HydrogenHourlyMatching" => 0,

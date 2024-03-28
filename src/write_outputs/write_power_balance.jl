@@ -16,8 +16,8 @@ function write_power_balance(path::AbstractString, inputs::Dict, setup::Dict, EP
 	    "Demand_Response", "Nonserved_Energy",
 	    "Transmission_NetExport", "Transmission_Losses",
 	    "Demand"]
-	if !isempty(ELECTROLYZER)
-			push!(Com_list, "Electrolyzer_Consumption")
+	if setup["HydrogenMimimumProduction"] > 0
+		push!(Com_list, "Electrolyzer_Consumption")
 	end
 	L = length(Com_list)
 	dfPowerBalance = DataFrame(BalanceComponent = repeat(Com_list, outer = Z), Zone = repeat(1:Z, inner = L), AnnualSum = zeros(L * Z))
@@ -29,11 +29,11 @@ function write_power_balance(path::AbstractString, inputs::Dict, setup::Dict, EP
 		    STOR_ALL_ZONE = intersect(resources_in_zone_by_rid(gen,z), STOR_ALL)
 		    powerbalance[(z-1)*L+2, :] = sum(value.(EP[:vP][STOR_ALL_ZONE, :]), dims = 1)
 		    powerbalance[(z-1)*L+3, :] = (-1) * sum((value.(EP[:vCHARGE][STOR_ALL_ZONE, :]).data), dims = 1)
-		end
+		end 
 		if !isempty(intersect(resources_in_zone_by_rid(gen,z), VRE_STOR))
 			VS_ALL_ZONE = intersect(resources_in_zone_by_rid(gen,z), inputs["VS_STOR"])
-			powerbalance[(z-1)*L+2, :] = sum(value.(EP[:vP][VS_ALL_ZONE, :]), dims = 1)
-			powerbalance[(z-1)*L+3, :] = (-1) * sum(value.(EP[:vCHARGE_VRE_STOR][VS_ALL_ZONE, :]).data, dims=1) 
+			powerbalance[(z-1)*L+2, :] = sum(value.(EP[:vP][VS_ALL_ZONE, :]), dims = 1) # + sum(value.(EP[:vP][STOR_ALL_ZONE, :]), dims = 1)
+			powerbalance[(z-1)*L+3, :] = (-1) * sum(value.(EP[:vCHARGE_VRE_STOR][VS_ALL_ZONE, :]).data, dims=1)  #+ (-1) * sum((value.(EP[:vCHARGE][STOR_ALL_ZONE, :]).data), dims = 1) + 
 		end
 		if !isempty(intersect(resources_in_zone_by_rid(gen,z), FLEX))
 		    FLEX_ZONE = intersect(resources_in_zone_by_rid(gen,z), FLEX)
@@ -49,8 +49,8 @@ function write_power_balance(path::AbstractString, inputs::Dict, setup::Dict, EP
 		    powerbalance[(z-1)*L+9, :] = -(value.(EP[:eLosses_By_Zone][z, :]))
 		end
 		powerbalance[(z-1)*L+10, :] = (((-1) * inputs["pD"][:, z]))' # Transpose
-		if !isempty(ELECTROLYZER)
-		    ELECTROLYZER_ZONE = intersect(resources_in_zone_by_rid(gen,z), ELECTROLYZER)
+		if setup["HydrogenMimimumProduction"] > 0 & !isempty(ELECTROLYZER)
+			ELECTROLYZER_ZONE = intersect(resources_in_zone_by_rid(gen,z), ELECTROLYZER)
 			powerbalance[(z-1)*L+11, :] = (-1) * sum(value.(EP[:vUSE][ELECTROLYZER_ZONE, :].data), dims = 1)
 		end
 	end
