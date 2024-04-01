@@ -1,9 +1,12 @@
 <div align="center"> <img src="docs/src/assets/logo_readme.svg"  height ="200"width="1000" alt="GenX.jl"></img></div>
 
-[![CI](https://github.com/GenXProject/GenX/actions/workflows/ci.yml/badge.svg)](https://github.com/GenXProject/GenX/actions/workflows/ci.yml)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://genxproject.github.io/GenX.jl/dev)
-[![DOI](https://zenodo.org/badge/10814088.svg)](https://zenodo.org/badge/latestdoi/10814088)
-[![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
+
+|  **Latest releases** | **Documentation** | **DOI** |
+|:-------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------:|
+| [v0.3.6](https://github.com/GenXProject/GenX.jl/releases/tag/v0.3.6)   [v0.4.0](https://github.com/GenXProject/GenX.jl/releases/tag/v0.4.0-rc) | [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://genxproject.github.io/GenX.jl/stable/) [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://genxproject.github.io/GenX.jl/dev) | [![DOI](https://zenodo.org/badge/368957308.svg)](https://zenodo.org/doi/10.5281/zenodo.10846069) 
+
+[![CI](https://github.com/GenXProject/GenX/actions/workflows/ci.yml/badge.svg)](https://github.com/GenXProject/GenX/actions/workflows/ci.yml) [![format-check](https://github.com/lbonaldo/Test_CI/actions/workflows/format_check.yml/badge.svg)](https://github.com/lbonaldo/Test_CI/actions/workflows/format_check.yml) [![SciML Code Style](https://img.shields.io/static/v1?label=code%20style&message=SciML&color=9558b2&labelColor=389826)](https://github.com/SciML/SciMLStyle) [![ColPrac: Contributor's Guide on Collaborative Practices for Community Packages](https://img.shields.io/badge/ColPrac-Contributor's%20Guide-blueviolet)](https://github.com/SciML/ColPrac)
+
 
 ## Overview
 GenX is a highly-configurable, [open source](https://github.com/GenXProject/GenX/blob/main/LICENSE) electricity resource capacity expansion model 
