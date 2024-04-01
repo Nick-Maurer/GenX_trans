@@ -332,12 +332,10 @@ The HiGHS optimizer instance is configured with the following default parameters
 
 """
 function configure_highs(solver_settings_path::String, optimizer::Any)
+    solver_settings = YAML.load(open(solver_settings_path))
+    solver_settings = convert(Dict{String, Any}, solver_settings)
 
-	solver_settings = YAML.load(open(solver_settings_path))
-	solver_settings = convert(Dict{String, Any}, solver_settings)
-
-    default_settings = Dict{String,Any}(
-        "Feasib_Tol" => 1e-6,
+    default_settings = Dict{String, Any}("Feasib_Tol" => 1e-6,
         "Optimal_Tol" => 1e-4,
         "Pre_Solve" => "choose",
         "TimeLimit" => Inf,
@@ -419,17 +417,15 @@ function configure_highs(solver_settings_path::String, optimizer::Any)
         "start_crossover_tolerance" => 1e-08,
         "use_original_HFactor_logic" => true,
         "less_infeasible_DSE_check" => true,
-        "less_infeasible_DSE_choose_row" => true,
-    )
+        "less_infeasible_DSE_choose_row" => true)
 
     attributes = merge(default_settings, solver_settings)
 
     key_replacement = Dict("Feasib_Tol" => "primal_feasibility_tolerance",
-                           "Optimal_Tol" => "dual_feasibility_tolerance",
-                           "TimeLimit" => "time_limit",
-                           "Pre_Solve" => "presolve",
-                           "Method" => "solver",
-                          )
+        "Optimal_Tol" => "dual_feasibility_tolerance",
+        "TimeLimit" => "time_limit",
+        "Pre_Solve" => "presolve",
+        "Method" => "solver")
 
     attributes = rename_keys(attributes, key_replacement)
 

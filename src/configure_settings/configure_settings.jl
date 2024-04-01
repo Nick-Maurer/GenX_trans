@@ -1,6 +1,5 @@
 function default_settings()
-    Dict{Any,Any}(
-        "PrintModel" => 0,
+    Dict{Any, Any}("PrintModel" => 0,
         "OverwriteResults" => 0,
         "NetworkExpansion" => 0,
         "Trans_Loss_Segments" => 1,
@@ -31,8 +30,7 @@ function default_settings()
         "ResourcesFolder" => "resources",
         "ResourcePoliciesFolder" => "policy_assignments",
         "SystemFolder" => "system",
-        "PoliciesFolder" => "policies",
-    )
+        "PoliciesFolder" => "policies")
 end
 
 @doc raw"""
@@ -63,10 +61,10 @@ function configure_settings(settings_path::String, output_settings_path::String)
     return settings
 end
 
-function validate_settings!(settings::Dict{Any,Any})
+function validate_settings!(settings::Dict{Any, Any})
     # Check for any settings combinations that are not allowed.
     # If we find any then make a response and issue a note to the user.
-    
+
     # make WriteOutputs setting lowercase and check for valid value
     settings["WriteOutputs"] = lowercase(settings["WriteOutputs"])
     @assert settings["WriteOutputs"] ∈ ["annual", "full"]
@@ -80,20 +78,18 @@ function validate_settings!(settings::Dict{Any,Any})
 
     if haskey(settings, "Reserves")
         Base.depwarn("""The Reserves setting has been deprecated. Please use the
-        OperationalReserves setting instead.""", :validate_settings!, force=true)
+        OperationalReserves setting instead.""", :validate_settings!, force = true)
         settings["OperationalReserves"] = settings["Reserves"]
         delete!(settings, "Reserves")
     end
 
-    if settings["EnableJuMPStringNames"]==0 && settings["ComputeConflicts"]==1
-        settings["EnableJuMPStringNames"]=1;
+    if settings["EnableJuMPStringNames"] == 0 && settings["ComputeConflicts"] == 1
+        settings["EnableJuMPStringNames"] = 1
     end
-
 end
 
 function default_writeoutput()
-    Dict{String,Bool}(
-        "WriteCosts" => true,
+    Dict{String, Bool}("WriteCosts" => true,
         "WriteCapacity" => true,
         "WriteCapacityValue" => true,
         "WriteCapacityFactor" => true,
@@ -139,12 +135,10 @@ function default_writeoutput()
         "WriteTransmissionLosses" => true,
         "WriteVirtualDischarge" => true,
         "WriteVREStor" => true,
-        "WriteAngles" => true
-    )
+        "WriteAngles" => true)
 end
 
 function configure_writeoutput(output_settings_path::String, settings::Dict)
-    
     writeoutput = default_writeoutput()
 
     # don't write files with hourly data if settings["WriteOutputs"] == "annual"
